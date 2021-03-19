@@ -1,0 +1,4 @@
+name: Yggdrasill
+version: @version@
+main: com.kotyabuchi.yggdrasill.Main
+api-version: 1.16
