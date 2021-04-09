@@ -2,6 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'koin'
 
 group = 'com.github.kunugiya'
 version = '1.0-SNAPSHOT'
@@ -11,6 +12,7 @@ targetCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    jcenter()
     maven {
         url 'https://papermc.io/repo/repository/maven-public/'
     }
@@ -30,9 +32,10 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
     compile 'com.eclipsesource.minimal-json:minimal-json:0.9.4'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.32.3.2'
-    compile "io.reactivex.rxjava3:rxjava:3.0.7"
-    compile files ("lib/item-nbt-api-2.6.0.jar")
+    compile 'org.xerial:sqlite-jdbc:3.32.3.2'
+    compile "org.koin:koin-core:$koin_version"
+    implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"
+    implementation 'de.tr7zw:item-nbt-api-plugin:2.7.1'
 }
 
 processResources {
@@ -41,12 +44,15 @@ processResources {
     }
 }
 buildscript {
-    ext.kotlin_version = '1.4.31'
+    ext.kotlin_version = '1.4.32'
+    ext.koin_version = '2.2.2'
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.koin:koin-gradle-plugin:$koin_version"
     }
 }
 compileKotlin {
